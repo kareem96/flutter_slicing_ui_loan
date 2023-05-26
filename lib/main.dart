@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slicing_ui/src/home_bottom_nav_cubit.dart';
 import 'package:slicing_ui/src/home_tab.dart';
+import 'package:slicing_ui/src/model/person_model.dart';
+import 'package:slicing_ui/src/ui/detail_page.dart';
 import 'package:slicing_ui/src/ui/home.dart';
 import 'package:slicing_ui/src/ui/splash_page.dart';
 
@@ -33,6 +35,7 @@ class _MyAppState extends State<MyApp> {
 
 final routes = <String, WidgetBuilder>{
     SplashPage.routeName: (context) => SplashPage(),
+    DetailPage.routeName: (context) => DetailPage(personModel: ModalRoute.of(context)?.settings.arguments as PersonModel,),
     HomeTab.routeName: (context) => MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => HomeBottomNavIndexBloc())
