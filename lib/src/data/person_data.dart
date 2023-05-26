@@ -1,0 +1,50 @@
+import 'package:slicing_ui/src/model/person_model.dart';
+
+List<PersonModel> mainList = [
+  PersonModel(
+    id: 1,
+    imageUrl: "",
+    name: "Dea Ananda",
+    gender: 'Perempuan',
+    job: "Karyawan",
+    email: "dea.ananda@gmail.com",
+    telp: "62841233423523",
+    value: 1,
+  ),PersonModel(
+    id: 2,
+    imageUrl: "",
+    name: "Van Tomiko Can",
+    gender: 'Perempuan',
+    job: "Karyawan",
+    email: "soundgeekid@gmail.com",
+    telp: "62841233423523",
+    value: 1,
+  ),PersonModel(
+    id: 3,
+    imageUrl: "",
+    name: "fajar",
+    gender: 'Laki-Laki',
+    job: "Karyawan",
+    email: "-",
+    telp: "-",
+    value: 1,
+  ),PersonModel(
+    id: 4,
+    imageUrl: "",
+    name: "fajar",
+    gender: 'Laki-Laki',
+    job: "Karyawan",
+    email: "-",
+    telp: "-",
+    value: 1,
+  ),PersonModel(
+    id: 5,
+    imageUrl: "",
+    name: "Kevin",
+    gender: 'Laki-Laki',
+    job: "Karyawan",
+    email: "kevin123@gmail.com",
+    telp: "62841233423523",
+    value: 1,
+  ),
+];
