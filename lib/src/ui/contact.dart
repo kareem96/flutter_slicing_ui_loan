@@ -55,123 +55,119 @@ class _ContactPageState extends State<ContactPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      extendBodyBehindAppBar: true,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            DefaultTabController(
-              length: 3,
-              child: NestedScrollView(
-                headerSliverBuilder: (context, value) {
-                  return [
-                    SliverPersistentHeader(
-                      pinned: true,
-                      delegate: _SliverAppBarDelegate(
-                        minHeight: 150,
-                        maxHeight: 150,
-                        child: Container(
-                          color: Colors.blue,
-                          height: 195,
-                          width: double.infinity,
-                          child: const Image(
-                            image: AssetImage('assets/image/loan.jpeg'),
-                            fit: BoxFit.fill,
-                          ),
+      body: Stack(
+        children: [
+          DefaultTabController(
+            length: 3,
+            child: NestedScrollView(
+              headerSliverBuilder: (context, value) {
+                return [
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: _SliverAppBarDelegate(
+                      minHeight: 150,
+                      maxHeight: 150,
+                      child: Container(
+                        color: Colors.blue,
+                        height: 195,
+                        width: double.infinity,
+                        child: const Image(
+                          image: AssetImage('assets/image/loan.jpeg'),
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
-                    SliverPersistentHeader(
-                      pinned: true,
-                      delegate: _SliverAppBarDelegate(
-                        minHeight: 50,
-                        maxHeight: 50,
-                        child: Container(
-                          color: Colors.white,
-                          child: TabBar(
-                            controller: _tabController,
-                            tabs: const [
-                              Tab(
-                                child: Text(
-                                  'My Contact',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: _SliverAppBarDelegate(
+                      minHeight: 50,
+                      maxHeight: 50,
+                      child: Container(
+                        color: Colors.white,
+                        child: TabBar(
+                          controller: _tabController,
+                          tabs: const [
+                            Tab(
+                              child: Text(
+                                'My Contact',
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
                               ),
-                              Tab(
-                                child: Text(
-                                  'Other Contact',
-                                  style: TextStyle(color: Colors.black),
-                                ),
+                            ),
+                            Tab(
+                              child: Text(
+                                'Other Contact',
+                                style: TextStyle(color: Colors.black),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ];
-                },
-                body: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _tabMyContact(context),
-                    const Center(
-                      child: Text("Tab Other Contact"),
-                    ),
-                  ],
-                ),
+                  ),
+                ];
+              },
+              body: TabBarView(
+                controller: _tabController,
+                children: [
+                  _tabMyContact(context),
+                  const Center(
+                    child: Text("Tab Other Contact"),
+                  ),
+                ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 90,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: InkWell(
-                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Coming Soon'),
-                        duration: Duration(seconds: 2),
-                      ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 90,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: InkWell(
+                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Coming Soon'),
+                      duration: Duration(seconds: 2),
                     ),
-                    child: const Icon(Icons.menu),
                   ),
+                  child: const Icon(Icons.menu),
                 ),
-                Container(
-                    height: 90,
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child:  Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Coming Soon'),
-                                duration: Duration(seconds: 2),
-                              ),
-                            );
-                          },
-                          child: Icon(Icons.notifications_none),
-                        ),
-                        const SizedBox(width: 15,),
-                        InkWell(
-                          onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+              ),
+              Container(
+                  height: 120,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child:  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Coming Soon'),
                               duration: Duration(seconds: 2),
                             ),
+                          );
+                        },
+                        child: Icon(Icons.notifications_none),
+                      ),
+                      const SizedBox(width: 15,),
+                      InkWell(
+                        onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Coming Soon'),
+                            duration: Duration(seconds: 2),
                           ),
-                          child: Icon(Icons.settings),
                         ),
-                      ],
-                    )
-                ),
-              ],
-            )
-          ],
-        ),
+                        child: Icon(Icons.settings),
+                      ),
+                    ],
+                  )
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

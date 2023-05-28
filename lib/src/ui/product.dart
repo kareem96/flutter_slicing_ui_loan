@@ -9,8 +9,7 @@ class ProductPage extends StatefulWidget {
   State<ProductPage> createState() => _ProductPageState();
 }
 
-class _ProductPageState extends State<ProductPage>
-    with SingleTickerProviderStateMixin {
+class _ProductPageState extends State<ProductPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollController;
   late bool fixedScroll;
@@ -18,10 +17,7 @@ class _ProductPageState extends State<ProductPage>
   @override
   void initState() {
     _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
     _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(_smoothScrollToTop);
-
     super.initState();
   }
 
@@ -32,207 +28,124 @@ class _ProductPageState extends State<ProductPage>
     super.dispose();
   }
 
-  _scrollListener() {
-    if (fixedScroll) {
-      _scrollController.jumpTo(0);
-    }
-  }
-
-  _smoothScrollToTop() {
-    _scrollController.animateTo(
-      0,
-      duration: Duration(microseconds: 300),
-      curve: Curves.ease,
-    );
-
-    setState(() {
-      fixedScroll = _tabController.index == 2;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
-      children: [
-        DefaultTabController(
-          length: 2,
-          child: NestedScrollView(
-            headerSliverBuilder: (context, value) {
-              return [
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: _SliverAppBarDelegate(
-                    minHeight: 150,
-                    maxHeight: 150,
-                    child: Container(
-                      color: Colors.blue,
-                      height: 195,
-                      width: double.infinity,
-                      child: const Image(
-                        image: AssetImage('assets/image/loan.jpeg'),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: _SliverAppBarDelegate(
-                    minHeight: 50,
-                    maxHeight: 50,
-                    child: Container(
-                      color: Colors.white,
-                      child: TabBar(
-                        controller: _tabController,
-                        tabs: const [
-                          Tab(
-                            child: Text(
-                              'Bank',
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          Tab(
-                            child: Text(
-                              'Developer',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ];
-            },
-            body: TabBarView(
-              controller: _tabController,
-              children: [
-                _tabBank(context),
-                const Center(
-                  child: Text("Tab Developer"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 90,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: InkWell(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon'),
-                      duration: Duration(seconds: 2),
+            DefaultTabController(
+              length: 2,
+              child: NestedScrollView(headerSliverBuilder: (context, value) {
+                return [
+                  SliverPersistentHeader(pinned: true,
+                      delegate: _SliverAppBarDelegate(
+                        minHeight: 150,
+                        maxHeight: 150,
+                        child: Container(
+                          color: Colors.blue,
+                          height: 195,
+                          width: double.infinity,
+                          child: const Image(
+                            image: AssetImage('assets/image/loan.jpeg'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
                     ),
-                  );
+                  SliverPersistentHeader(
+                      pinned: true,
+                      delegate: _SliverAppBarDelegate(
+                        minHeight: 50,
+                        maxHeight: 50,
+                        child: Container(
+                          color: Colors.white,
+                          child: TabBar(
+                            controller: _tabController,
+                            tabs: const [
+                              Tab(
+                                child: Text('Bank', style: TextStyle(color: Colors.black,),
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Developer',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                ];
                 },
-                child: const Icon(Icons.menu),
-              ),
-            ),
-            Container(
-                height: 90,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
+                body: TabBarView(
+                  controller: _tabController,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Coming Soon'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-                      },
-                      child: const Icon(Icons.notifications_none),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Coming Soon'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-                      },
-                      child: const Icon(Icons.settings),
+                    _tabBank(context),
+                    const Center(
+                      child: Text("Tab Developer"),
                     ),
                   ],
-                )),
-          ],
-        )
-      ],
-    ));
-    /*return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 250,
-              leading: const Icon(Icons.menu),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: const Icon(Icons.notifications_none_outlined),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: const Icon(Icons.settings),
-                      ),
-                    ],
-                  ),
                 ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  'assets/image/loan.jpeg',
-                  fit: BoxFit.fill,
-                ),
-              ),
-              bottom: TabBar(
-                labelColor: Colors.black,
-                labelPadding: EdgeInsets.zero,
-                controller: _tabController,
-                tabs: [
-                  for (final t in ["My Contact", "Other Contact"])
-                    Container(
-                      width: double.infinity,
-                      color: Colors.white,
-                      child: Tab(
-                        text: t,
-                      ),
-                    )
-                ],
               ),
             ),
-          ];
-        },
-        body: TabBarView(
-          physics: ScrollPhysics(),
-          controller: _tabController,
-          children: [
-            // Widget for Tab 1
-            Center(child: _tabBank(context)),
-            // Widget for Tab 2
-            const Center(child: Text('Tab Other Contact')),
+            SizedBox(
+              height: 120,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: InkWell(onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Coming Soon'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                      child: const Icon(Icons.menu),
+                    ),
+                  ),
+                  Container(
+
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Coming Soon'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            child: const Icon(Icons.notifications_none),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Coming Soon'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            child: const Icon(Icons.settings),
+                          ),
+                        ],
+                      )),
+                ],
+              )
+            )
           ],
-        ),
-      ),
-    );*/
+        )
+    );
   }
 }
 
@@ -285,6 +198,7 @@ Widget _tabBank(BuildContext context) {
               fillColor: Colors.white,
               border: OutlineInputBorder(),
               hintText: 'Cari nama bank',
+
               hintStyle: TextStyle(
                 color: Colors.grey,
               ),
@@ -374,6 +288,7 @@ Widget _tabBank(BuildContext context) {
           ),
           const SizedBox(height: 5),
           const TextField(
+            enabled: false,
             cursorColor: Colors.grey,
             decoration: InputDecoration(
               fillColor: Colors.white,
@@ -396,7 +311,8 @@ Widget _tabBank(BuildContext context) {
                   width: 320,
                   child: Card(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5), child: Column(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
                       children: [
                         const Image(
                           height: 100,
@@ -407,44 +323,41 @@ Widget _tabBank(BuildContext context) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Flexible(
-                                flex: 1,
+                            Expanded(
                                 child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Colors.green),
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    child: Column(
-                                      children: [
-                                        Text("Rating:"),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        RatingBar.builder(
-                                            initialRating: 3.0,
-                                            minRating: 1,
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: false,
-                                            itemCount: 5,
-                                            itemSize: 20,
-                                            itemPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 2),
-                                            itemBuilder: (context, index) =>
-                                                Icon(
-                                                  _selectedIcon ?? Icons.star,
-                                                  color: Colors.amber,
-                                                ),
-                                            onRatingUpdate: (rating) {}),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text("14 Reviews:"),
-                                      ],
+                              decoration:
+                                  const BoxDecoration(color: Colors.green),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  children: [
+                                    Text("Rating:"),
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                  ),
-                                )),
+                                    RatingBar.builder(
+                                        initialRating: 3.0,
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: false,
+                                        itemCount: 5,
+                                        itemSize: 20,
+                                        itemPadding: const EdgeInsets.symmetric(
+                                            horizontal: 2),
+                                        itemBuilder: (context, index) => Icon(
+                                              _selectedIcon ?? Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                        onRatingUpdate: (rating) {}),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("14 Reviews:"),
+                                  ],
+                                ),
+                              ),
+                            )),
                             const VerticalDivider(
                               width: 10,
                               thickness: 1,
@@ -452,44 +365,26 @@ Widget _tabBank(BuildContext context) {
                               endIndent: 2,
                               color: Colors.grey,
                             ),
-                            Flexible(
-                                flex: 1,
+                            Expanded(
                                 child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Colors.green),
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    child: Column(
-                                      children: [
-                                        const Text("User :"),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        RatingBar.builder(
-                                            initialRating: 3.0,
-                                            minRating: 1,
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: false,
-                                            itemCount: 5,
-                                            itemSize: 20,
-                                            itemPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 2),
-                                            itemBuilder: (context, index) =>
-                                                Icon(
-                                                  _selectedIcon ?? Icons.star,
-                                                  color: Colors.amber,
-                                                ),
-                                            onRatingUpdate: (rating) {}),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("Users yearly:"),
-                                      ],
+                              decoration: BoxDecoration(color: Colors.green),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  children: [
+                                    const Text("User :"),
+                                    const SizedBox(
+                                      height: 10,
                                     ),
-                                  ),
-                                )),
+                                    const Text("220:"),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Text("Users yearly:"),
+                                  ],
+                                ),
+                              ),
+                            ))
                           ],
                         ),
                         const SizedBox(
@@ -619,6 +514,5 @@ Widget _tabBank(BuildContext context) {
             ),
           )
         ],
-      )
-  );
+      ));
 }
