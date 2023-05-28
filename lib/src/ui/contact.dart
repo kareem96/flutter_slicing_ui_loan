@@ -65,8 +65,8 @@ class _ContactPageState extends State<ContactPage>
                   SliverPersistentHeader(
                     pinned: true,
                     delegate: _SliverAppBarDelegate(
-                      minHeight: 150,
-                      maxHeight: 150,
+                      minHeight: 190,
+                      maxHeight: 190,
                       child: Container(
                         color: Colors.blue,
                         height: 195,
@@ -120,52 +120,57 @@ class _ContactPageState extends State<ContactPage>
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: 90,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: InkWell(
-                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Coming Soon'),
-                      duration: Duration(seconds: 2),
+          SizedBox(
+              height: 140,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: InkWell(onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Coming Soon'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                      child: const Icon(Icons.menu),
                     ),
                   ),
-                  child: const Icon(Icons.menu),
-                ),
-              ),
-              Container(
-                  height: 120,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child:  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Coming Soon'),
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        },
-                        child: Icon(Icons.notifications_none),
-                      ),
-                      const SizedBox(width: 15,),
-                      InkWell(
-                        onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Coming Soon'),
-                            duration: Duration(seconds: 2),
+                  Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Coming Soon'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            child: const Icon(Icons.notifications_none),
                           ),
-                        ),
-                        child: Icon(Icons.settings),
-                      ),
-                    ],
-                  )
-              ),
-            ],
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Coming Soon'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            child: const Icon(Icons.settings),
+                          ),
+                        ],
+                      )),
+                ],
+              )
           )
         ],
       ),
@@ -220,6 +225,7 @@ Widget _tabMyContact(BuildContext context) {
                   cursorColor: Colors.grey,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
+                    enabled: false,
                     border: OutlineInputBorder(),
                     hintText: 'Cari berdasarkan nama',
                     hintStyle: TextStyle(

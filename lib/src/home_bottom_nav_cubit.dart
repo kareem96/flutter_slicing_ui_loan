@@ -13,7 +13,7 @@ class HomeBottomNavIndexBloc extends Cubit<int>{
   List<Widget> pages =[
     HomePage(),
     ContactPage(),
-    MyHomePage(),
+    LoanPage(),
     ProductPage(),
     BankPage(),
   ];

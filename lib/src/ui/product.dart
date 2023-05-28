@@ -34,16 +34,17 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
         body: Stack(
           children: [
             DefaultTabController(
-              length: 2,
-              child: NestedScrollView(headerSliverBuilder: (context, value) {
-                return [
-                  SliverPersistentHeader(pinned: true,
+              length: 0,
+              child: NestedScrollView(
+                headerSliverBuilder: (context, value) {
+                  return [
+                    SliverPersistentHeader(
+                      pinned: true,
                       delegate: _SliverAppBarDelegate(
-                        minHeight: 150,
-                        maxHeight: 150,
+                        minHeight: 190,
+                        maxHeight: 190,
                         child: Container(
                           color: Colors.blue,
-                          height: 195,
                           width: double.infinity,
                           child: const Image(
                             image: AssetImage('assets/image/loan.jpeg'),
@@ -52,7 +53,7 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
                         ),
                       ),
                     ),
-                  SliverPersistentHeader(
+                    SliverPersistentHeader(
                       pinned: true,
                       delegate: _SliverAppBarDelegate(
                         minHeight: 50,
@@ -77,8 +78,8 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
                         ),
                       ),
                     ),
-                ];
-                },
+                    ];
+                  },
                 body: TabBarView(
                   controller: _tabController,
                   children: [
@@ -91,57 +92,56 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
               ),
             ),
             SizedBox(
-              height: 120,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: InkWell(onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Coming Soon'),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                    },
-                      child: const Icon(Icons.menu),
-                    ),
-                  ),
-                  Container(
-
+                height: 140,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Coming Soon'),
-                                  duration: Duration(seconds: 2),
-                                ),
-                              );
-                            },
-                            child: const Icon(Icons.notifications_none),
+                      child: InkWell(onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Coming Soon'),
+                            duration: Duration(seconds: 2),
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Coming Soon'),
-                                  duration: Duration(seconds: 2),
-                                ),
-                              );
-                            },
-                            child: const Icon(Icons.settings),
-                          ),
-                        ],
-                      )),
-                ],
-              )
+                        );
+                      },
+                        child: const Icon(Icons.menu),
+                      ),
+                    ),
+                    Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Coming Soon'),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              },
+                              child: const Icon(Icons.notifications_none),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Coming Soon'),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              },
+                              child: const Icon(Icons.settings),
+                            ),
+                          ],
+                        )),
+                  ],
+                )
             )
           ],
         )
@@ -198,7 +198,7 @@ Widget _tabBank(BuildContext context) {
               fillColor: Colors.white,
               border: OutlineInputBorder(),
               hintText: 'Cari nama bank',
-
+              enabled: false,
               hintStyle: TextStyle(
                 color: Colors.grey,
               ),
@@ -212,6 +212,7 @@ Widget _tabBank(BuildContext context) {
             children: [
               Flexible(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Flexible(
                       child: Container(
@@ -237,11 +238,10 @@ Widget _tabBank(BuildContext context) {
                           )),
                     )
                   ],
-                  mainAxisAlignment: MainAxisAlignment.start,
                 ),
               ),
               const SizedBox(
-                width: 70,
+                width: 40,
               ),
               Flexible(
                 child: Row(
@@ -301,7 +301,8 @@ Widget _tabBank(BuildContext context) {
             ),
           ),
           const SizedBox(height: 5),
-          SizedBox(
+          SingleChildScrollView(
+            child: SizedBox(
             height: 350,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -311,16 +312,16 @@ Widget _tabBank(BuildContext context) {
                   width: 320,
                   child: Card(
                       child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Column(
-                      children: [
-                        const Image(
-                          height: 100,
-                          width: 200,
-                          image: AssetImage('assets/image/mandiri.png'),
-                          fit: BoxFit.contain,
-                        ),
-                        Row(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          children: [
+                            const Image(
+                              height: 100,
+                              width: 200,
+                              image: AssetImage('assets/image/mandiri.png'),
+                              fit: BoxFit.contain,
+                            ),
+                            Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Expanded(
@@ -512,6 +513,7 @@ Widget _tabBank(BuildContext context) {
                 );
               },
             ),
+          )
           )
         ],
       ));
