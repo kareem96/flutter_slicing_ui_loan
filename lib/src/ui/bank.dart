@@ -10,6 +10,8 @@ class BankPage extends StatefulWidget {
 class _BankPageState extends State<BankPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Text("Page Bank"),
+    );
   }
 }

@@ -10,6 +10,8 @@ class LoanPage extends StatefulWidget {
 class _LoanPageState extends State<LoanPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Center(
+      child: Text("Page Loan"),
+    );
   }
 }

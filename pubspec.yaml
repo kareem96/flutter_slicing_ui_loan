@@ -43,6 +43,7 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   curved_animation_controller: ^1.1.0+1
   equatable: ^2.0.5
+  flutter_rating_bar: ^4.0.1
 
 
 dev_dependencies:
