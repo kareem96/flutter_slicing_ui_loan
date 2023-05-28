@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:slicing_ui/src/data/person_data.dart';
 import 'package:slicing_ui/src/model/person_model.dart';
 import 'package:slicing_ui/src/ui/detail_page.dart';
+import 'dart:math' as math;
 
 class ContactPage extends StatefulWidget {
   const ContactPage({Key? key}) : super(key: key);
@@ -54,141 +55,159 @@ class _ContactPageState extends State<ContactPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 250,
-              leading: const Icon(Icons.menu),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      Container(
-                          padding: const EdgeInsets.only(right: 10),
-                        child: const Icon(Icons.notifications_none_outlined),
+      backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            DefaultTabController(
+              length: 3,
+              child: NestedScrollView(
+                headerSliverBuilder: (context, value) {
+                  return [
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: _SliverAppBarDelegate(
+                        minHeight: 150,
+                        maxHeight: 150,
+                        child: Container(
+                          color: Colors.blue,
+                          height: 195,
+                          width: double.infinity,
+                          child: const Image(
+                            image: AssetImage('assets/image/loan.jpeg'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: const Icon(Icons.settings),
+                    ),
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: _SliverAppBarDelegate(
+                        minHeight: 50,
+                        maxHeight: 50,
+                        child: Container(
+                          color: Colors.white,
+                          child: TabBar(
+                            controller: _tabController,
+                            tabs: const [
+                              Tab(
+                                child: Text(
+                                  'My Contact',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Other Contact',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ];
+                },
+                body: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _tabMyContact(context),
+                    const Center(
+                      child: Text("Tab Other Contact"),
+                    ),
+                  ],
                 ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  'assets/image/loan.jpeg',
-                  fit: BoxFit.fill,
-                ),
-              ),
-              bottom: TabBar(
-                labelColor: Colors.black,
-                labelPadding: EdgeInsets.zero,
-                controller: _tabController,
-                tabs: [
-                  for (final t in ["My Contact", "Other Contact"])
-                    Container(
-                      width: double.infinity,
-                      color: Colors.white,
-                      child: Tab(
-                        text: t,
-                      ),
-                    )
-                ],
               ),
             ),
-          ];
-        },
-        body: TabBarView(
-          physics: BouncingScrollPhysics(),
-          controller: _tabController,
-          children: [
-            // Widget for Tab 1
-            Center(child: _tabMyContact(context)),
-            // Widget for Tab 2
-            const Center(child: Text('Tab Other Contact')),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 90,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: InkWell(
+                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Coming Soon'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    ),
+                    child: const Icon(Icons.menu),
+                  ),
+                ),
+                Container(
+                    height: 90,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child:  Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Coming Soon'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          },
+                          child: Icon(Icons.notifications_none),
+                        ),
+                        const SizedBox(width: 15,),
+                        InkWell(
+                          onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Coming Soon'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          ),
+                          child: Icon(Icons.settings),
+                        ),
+                      ],
+                    )
+                ),
+              ],
+            )
           ],
         ),
       ),
     );
   }
+}
 
-/*@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            title: Text('Sliver TabBarView Example'),
-            pinned: true,
-            floating: true,
-            expandedHeight: 200,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                'assets/image/loan.jpeg',
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
 
-              ),
-            ),
-            bottom: TabBar(
-              labelColor: Colors.black,
-              labelPadding: EdgeInsets.zero,
-              controller: _tabController,
-              tabs: [
+  @override
+  double get minExtent => minHeight;
 
-                for (final t in [1, 2, 3])
-                  Container(
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: Tab(
-                      text: "tab $t",
-                    ),
-                  )
-              ],
-            ),
-          ),
-          SliverFillRemaining(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                // Widget for Tab 1
-                ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text('Item $index'),
-                    );
-                  },
-                ),
+  @override
+  double get maxExtent => math.max(maxHeight, minHeight);
 
-                // Widget for Tab 2
-                GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      color: Colors.blue,
-                      margin: EdgeInsets.all(8),
-                      child: Center(
-                        child: Text('Item $index', style: TextStyle(color: Colors.white)),
-                      ),
-                    );
-                  },
-                ),
 
-                // Widget for Tab 3
-                Center(child: Text('Tab 3 Content')),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }*/
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
+  }
+
 }
 
 Widget _tabMyContact(BuildContext context) {
@@ -196,47 +215,45 @@ Widget _tabMyContact(BuildContext context) {
       padding: const EdgeInsets.all(10),
       child: Column(
         children: [
-          Flexible(
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  flex: 3,
-                  child: TextFormField(
-                    cursorColor: Colors.grey,
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(),
-                      hintText: 'Cari berdasarkan nama',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      suffixIcon: Icon(Icons.search),
+          Row(
+            children: <Widget>[
+              Flexible(
+                flex: 3,
+                child:
+                TextFormField(
+                  cursorColor: Colors.grey,
+                  decoration: const InputDecoration(
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(),
+                    hintText: 'Cari berdasarkan nama',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
                     ),
+                    suffixIcon: Icon(Icons.search),
                   ),
                 ),
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed: () => "",
-                    child: Text("Tambah"),
-                  ),
+              ),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () => "",
+                  child: Text("Tambah"),
                 ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
           Flexible(
               flex: 9,
-              child: Container(
-                child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: mainList.length,
-                    itemBuilder: (context, index) {
-                      PersonModel current = mainList[index];
-                      return _buildListRestaurant(context, current);
-                    }),
-              ))
+              child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: mainList.length,
+                  itemBuilder: (context, index) {
+                    PersonModel current = mainList[index];
+                    return _buildListRestaurant(context, current);
+                  }))
         ],
-      ));
+      )
+  );
 }
 
 Widget _buildListRestaurant(BuildContext context, PersonModel person) {
@@ -245,8 +262,7 @@ Widget _buildListRestaurant(BuildContext context, PersonModel person) {
       child: Card(
         elevation: 5,
         child: ListTile(
-          leading: CircleAvatar(radius: 30),
-          // leading: Hero(tag: person.pictureId, child: Image.network(restaurant.pictureId, fit: BoxFit.fill,width: 100,),),
+          leading: const CircleAvatar(radius: 30),
           title: Text(
             person.name,
             style: Theme.of(context).textTheme.bodyText2,
@@ -269,28 +285,3 @@ Widget _buildListRestaurant(BuildContext context, PersonModel person) {
   );
 }
 
-Widget _buildCarousel() {
-  return SizedBox(
-    child: Stack(
-      children: const <Widget>[
-        Align(
-          alignment: Alignment(-0.9, 0),
-          child: Icon(Icons.menu),
-        ),
-        Align(
-          alignment: Alignment(0.9, -0.9),
-          child: Icon(Icons.settings),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Image(
-            height: 200,
-            width: 500,
-            image: AssetImage('assets/image/loan.jpeg'),
-            fit: BoxFit.fill,
-          ),
-        )
-      ],
-    ),
-  );
-}

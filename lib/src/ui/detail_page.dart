@@ -21,7 +21,6 @@ class _DetailPageState extends State<DetailPage> {
         child: Padding(
             padding: EdgeInsets.all(10),
             child: Column(
-
               children: [
                 Center(
                   child: Column(
@@ -369,14 +368,23 @@ class _DetailPageState extends State<DetailPage> {
                                           ),
                                         ),
                                         Flexible(
-                                          flex: 3,
+                                          flex: 2,
                                           child: Row(
                                             children: <Widget>[
                                               Flexible(
-                                                flex: 1,
+                                                flex: 2,
                                                 child: Container(
-                                                  padding: EdgeInsets.all(10),
-                                                  child: CircleAvatar(),
+                                                  padding: const EdgeInsets.all(10),
+                                                  child: const Card(
+                                                    color: Colors.blueGrey,
+                                                    child: SizedBox(
+                                                      width: 300,
+                                                      height: 200,
+                                                      child: Center(
+                                                        child: Icon(Icons.storage_rounded),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                               Flexible(
